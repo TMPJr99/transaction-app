@@ -41,4 +41,13 @@ module.exports = {
         res.json(result)
       })
   },
+
+  delete: (req, res) => {
+    knex("transactions")
+      .where("id", req.params.id)
+      .delete()
+      .then(result => {
+        res.json(result);
+      });
+  },
 }
