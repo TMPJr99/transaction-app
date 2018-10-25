@@ -23,4 +23,13 @@ module.exports = {
     })
   },
 
+  delete: (req, res) => {
+    knex("users")
+      .where("id", req.params.id)
+      .delete()
+      .then(() => {
+        res.sendStatus(200);
+      });
+  },
+
 }

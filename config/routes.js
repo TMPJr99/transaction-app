@@ -13,6 +13,7 @@ module.exports = function(app){
 
 //USERS
 app.post('/users/new', users.new);
-app.post('/users/:id', users.update);
+app.patch('/users/:id', users.update);
+app.delete("/users/:id", users.delete);
 
 }
