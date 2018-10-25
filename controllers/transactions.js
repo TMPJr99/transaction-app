@@ -22,6 +22,15 @@ singleSelect: function(req, res) {
     res.json(result[0])
   })
   },
+
+  delete: (req, res) => {
+    knex("transactions")
+      .where("id", req.params.id)
+      .delete()
+      .then(result => {
+        res.json(result);
+      });
+  },
 }
 
 
