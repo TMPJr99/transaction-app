@@ -15,4 +15,30 @@ module.exports = {
           })
       }
   },
+
+  new: (req, res) => {
+    knex("transactions")
+      .insert({
+        user_id: req.body.user_id,
+        amount: req.body.amount,
+        type: req.body.type,
+        business_name: req.body.business_name,
+      })
+      .then(() => {
+        res.json(req.body);
+      });
+  },
+
+  update: (req, res) => {
+    knex("transactions")
+      .where('id', req.params.id).update({
+        user_id: req.body.user_id,
+        amount: req.body.amount,
+        type: req.body.type,
+        business_name: req.body.business_name
+      }, '*')
+      .then((result) => {
+        res.json(result)
+      })
+  },
 }
