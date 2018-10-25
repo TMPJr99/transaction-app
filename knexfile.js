@@ -4,6 +4,7 @@ module.exports = {
       connection: {
         database: "transaction-app-db",
         host: "localhost"
+        user: 
       },
       migrations: {
           directory: __dirname + '/db/migrations',
