@@ -1,7 +1,7 @@
 //Update the name of the controller below and rename the file.
-const template = require("../controllers/template.js")
+const transactions = require("../controllers/transactions.js")
 module.exports = function(app){
 
-  app.get('/transactions', template.index);
+  app.get('/transactions', transactions.selectAll);
 
 }

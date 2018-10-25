@@ -1,0 +1,128 @@
+.body {
+    overflow: hidden;
+    background-image: url('./images/pingy2.jpg');
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    display: block;
+    color: black;
+}
+
+nav::before{
+  content: "";
+    position: absolute;
+    padding-top: 70px;
+    width: 100%;
+    left: 0;
+    opacity: 0.4;
+    z-index: -1;
+    background-color: black;
+}
+
+  .btn-width{
+    width: 200px;
+  }
+
+  .blur-view::after{
+    content: "";
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.7;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: black;
+    padding-top: 100px;
+  }
+
+  .blur-view{
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    
+  }
+
+  .btm-img{
+    width: 100vw;
+    height: 75vh;
+    top: 0;
+    bottom: 0;
+    background-image: url('./images/pingy-tables.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .mid-area{
+    margin: 25vh 0 25vh;
+  }
+
+  .fixed{
+    color: black;
+  }
+
+  .btm-nav{
+    bottom:0;
+    left:0;
+    right:0;
+    padding: 2vh;
+    background-color: black;
+    border-top: 1px black solid;
+    opacity: 0.3;
+    margin-top: 10vh;
+  }
+
+@media (max-width: 740px) {
+  .view {
+    height: 1000px;
+  }
+  .btn-rds{
+    border-radius: 10em
+}
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  .view {
+    height: 600px;
+  }
+  .btn-rds{
+    border-radius: 10em
+}
+}
+
+.btn .fa {
+  margin-left: 3px;
+}
+
+.top-nav-collapse {
+  background-color: #424f95 !important;
+}
+
+.navbar:not(.top-nav-collapse) {
+  background: transparent !important;
+}
+
+@media (max-width: 991px) {
+  .navbar:not(.top-nav-collapse) {
+    background: #424f95 !important;
+  }
+  .btn-rds{
+    border-radius: 10em
+}
+}
+
+.btn-white {
+  color: black !important;
+}
+
+h6 {
+  line-height: 1.7;
+}
