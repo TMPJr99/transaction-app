@@ -15,4 +15,28 @@ module.exports = {
           })
       }
   },
+
+singleSelect: function(req, res) {
+  knex('transactions').where('id', req.params.id)
+  .then((result) => {
+    res.json(result[0])
+  })
+  },
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

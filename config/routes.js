@@ -4,4 +4,6 @@ module.exports = function(app){
 
   app.get('/transactions', transactions.selectAll);
 
+  app.get('/transactions/:id', transactions.singleSelect);
+
 }
