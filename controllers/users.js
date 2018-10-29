@@ -1,4 +1,5 @@
 const knex = require("../db/knex.js");
+const jwt = require('jsonwebtoken');
 
 
 module.exports = {
@@ -31,5 +32,23 @@ module.exports = {
         res.sendStatus(200);
       });
   },
+
+  login:(req,res)=>{
+   knex('users').where("email", req.body.email)
+   .then((result)=>{
+     let user = result[0];
+     if(user.password===req.body.password){
+       jwt.sign({user}, 'secretKey', {expiresIn: '1h'}, (err, token) => {
+          res.json({
+            token
+          })
+       })
+       // res.send(‘ok’)
+     }else{
+       res.redirect('/users/login');
+       // ADD~SHOW WRONG PASSWORD
+     }
+   })
+ },
 
 }
