@@ -1,5 +1,6 @@
 const knex = require("../db/knex.js");
 const jwt = require('jsonwebtoken');
+const secret = require('../config/secret');
 
 
 module.exports = {
@@ -39,20 +40,12 @@ module.exports = {
      let user = result[0];
      if (user.password === req.body.password) {
 
-      //  let token = jwt.sign(user[0], secret.jwt)
-      //  res.json({token})
-       
-       jwt.sign({user}, 'secretKey', {expiresIn: '1h'}, (err, token) => {
-          res.json({
-            token
-          })
-       })
-       // res.send(‘ok’)
+       let token = jwt.sign(user, secret.jwt, { expiresIn: '1h' })
+       res.json({token})
      }else{
-       res.redirect('/users/login');
-       // ADD~SHOW WRONG PASSWORD
+       res.sendStatus(400).send({message: 'invalid email/password'})
      }
    })
- },
+  }
 
 }

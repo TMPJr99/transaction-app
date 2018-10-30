@@ -1,9 +1,16 @@
 //Update the name of the controller below and rename the file.
 const transactions = require("../controllers/transactions.js")
 const users = require("../controllers/users.js")
-module.exports = function(app){
+const jwt = require("jsonwebtoken");
+const secret = require("../config/secret");
 
-//TRANSACTIONS
+module.exports = function(app){
+//LOGIN
+  app.post('/users/login', users.login);
+
+  app.use(verifyToken);
+  
+  //TRANSACTIONS
   app.get('/transactions', transactions.selectAll);
   app.get('/transactions/:id', transactions.singleSelect);
   app.post("/transactions/new", transactions.new);
@@ -11,27 +18,43 @@ module.exports = function(app){
   app.delete("/transactions/:id", transactions.delete);
 
 
-//USERS
-app.post('/users/new', users.new);
-app.patch('/users/:id', users.update);
-app.delete("/users/:id", users.delete);
-
-//LOGIN
-app.post('/users/login', users.login);
+  //USERS
+  app.post('/users/new', users.new);
+  app.patch('/users/:id', users.update);
+  app.delete("/users/:id", users.delete);
 
 }
  
-app.use(verifyToken)
+
 
 function verifyToken(req, res, next) {
-  const bearerHeader = req.headers['authorization'];
-  if(typeof bearerHeader !== undefined){
-    const bearer  = bearerHeader.split(' ');
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next();
+
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['token'];
+
+  // decode token
+  if (token) {
+
+    // verifies secret and checks exp
+    jwt.verify(token, secret.jwt, function (err, decoded) {
+      if (err) {
+        return res.status(401).send({ success: false, message: 'Failed to authenticate token.' });
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+
   } else {
-    res.sendStatus(401)
+
+    // if there is no token
+    // return an error
+    return res.status(401).send({
+      success: false,
+      message: 'No token provided.'
+    });
+
   }
 }
 
