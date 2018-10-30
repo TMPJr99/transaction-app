@@ -4,7 +4,7 @@ const users = require("../controllers/users.js")
 module.exports = function(app){
 
 //TRANSACTIONS
-  app.get('/transactions', verifyToken, transactions.selectAll);
+  app.get('/transactions', transactions.selectAll);
   app.get('/transactions/:id', transactions.singleSelect);
   app.post("/transactions/new", transactions.new);
   app.patch("/transactions/update/:id", transactions.update);
@@ -20,7 +20,8 @@ app.delete("/users/:id", users.delete);
 app.post('/users/login', users.login);
 
 }
-
+ 
+app.use(verifyToken)
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
@@ -33,3 +34,4 @@ function verifyToken(req, res, next) {
     res.sendStatus(401)
   }
 }
+

@@ -37,7 +37,11 @@ module.exports = {
    knex('users').where("email", req.body.email)
    .then((result)=>{
      let user = result[0];
-     if(user.password===req.body.password){
+     if (user.password === req.body.password) {
+
+      //  let token = jwt.sign(user[0], secret.jwt)
+      //  res.json({token})
+       
        jwt.sign({user}, 'secretKey', {expiresIn: '1h'}, (err, token) => {
           res.json({
             token
