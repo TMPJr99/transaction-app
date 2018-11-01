@@ -1,11 +1,12 @@
 const knex = require("../db/knex.js");
 const jwt = require('jsonwebtoken');
+const secret = require('../config/secret.js');
 
 module.exports = {
 
 
   selectAll: function(req, res) {
-    jwt.verify(req.token, 'secretKey', (err, data) => {
+    jwt.verify(req.token, secret.jwt, (err, data) => {
       if(err){
         res.sendStatus(401)
       }else{
