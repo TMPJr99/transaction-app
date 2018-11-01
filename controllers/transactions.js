@@ -1,20 +1,18 @@
 const knex = require("../db/knex.js");
 const jwt = require('jsonwebtoken');
+const secret = require('../config/secret.js');
 
 module.exports = {
 
-
-  selectAll: function(req, res) {
-    jwt.verify(req.token, 'secretKey', (err, data) => {
-      if(err){
-        res.sendStatus(401)
-      }else{
-        knex.select('transactions.id', 'transactions.amount', 'transactions.type', 'transactions.business_name', 'transactions.user_id', 'users.email', 'users.password', 'transactions.created_at', 'transactions.updated_at').from('transactions').innerJoin('users', 'users.id', 'transactions.user_id').orderBy('transactions.id', 'asc').limit(50).offset(req.query.page ? 50 * (req.query.page - 1) : 0)
-        .then((result)=>{
-          res.json(result)
-        })
-      }
-    })
+  selectAll: (req, res) => {
+    knex('transactions')
+      .orderBy('transactions.id', 'asc').limit(50).offset(req.query.page ? 50 * (req.query.page - 1) : 0)
+      .then((results) => {
+        res.json(results)
+      })
+      .catch((err) => {
+        console.error(err)
+      });
   },
 
   singleSelect: function(req, res) {
